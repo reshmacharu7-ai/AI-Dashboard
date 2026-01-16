@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: #e5e7eb;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 250px;
+            background: #020617;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 30px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #cbd5f5;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            background: #1e293b;
+            color: #38bdf8;
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .profile {
+            background: #1e293b;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* ===== CARDS ===== */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #020617;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(56,189,248,0.2);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #38bdf8;
+        }
+
+        /* ===== CHAT UI ===== */
+        .chat-box {
+            margin-top: 40px;
+            background: #020617;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .bot {
+            background: #1e293b;
+        }
+
+        .user {
+            background: #38bdf8;
+            color: #020617;
+            margin-left: auto;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .input-area button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            background: #38bdf8;
+            color: #020617;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background: #0ea5e9;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="logo">AI Platform</div>
+        <div class="menu">
+            <a href="#">🏠 Dashboard</a>
+            <a href="#">💬 Chat</a>
+            <a href="#">🎵 Explore</a>
+            <a href="#">⚙ Settings</a>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+        <div class="header">
+            <h1>Welcome Back</h1>
+            <div class="profile">User</div>
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards">
+            <div class="card">
+                <h3>AI Chat</h3>
+                <p>Talk with an AI assistant anytime.</p>
+            </div>
+            <div class="card">
+                <h3>Music Style</h3>
+                <p>Spotify-like modern dark UI.</p>
+            </div>
+            <div class="card">
+                <h3>Fast & Clean</h3>
+                <p>Optimized UX for smooth usage.</p>
+            </div>
+        </div>
+
+        <!-- CHAT -->
+        <div class="chat-box">
+            <div class="messages" id="messages">
+                <div class="message bot">Hello! How can I help you?</div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="input" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <footer>
+            © 2026 AI Platform • UI Inspired by ChatGPT & Spotify
+        </footer>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById("input");
+            const messages = document.getElementById("messages");
+
+            if (input.value.trim() === "") return;
+
+            const userMsg = document.createElement("div");
+            userMsg.className = "message user";
+            userMsg.innerText = input.value;
+            messages.appendChild(userMsg);
+
+            const botMsg = document.createElement("div");
+            botMsg.className = "message bot";
+            botMsg.innerText = "This is a UI demo response 🤖";
+            setTimeout(() => messages.appendChild(botMsg), 600);
+
+            input.value = "";
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
